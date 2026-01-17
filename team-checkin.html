@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Check-In</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="team-checkin-styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header team-header">
+            <div id="teamInfo" class="team-header-info">
+                <div class="team-header-avatar" id="teamAvatar">🚀</div>
+                <div class="team-header-text">
+                    <h1 id="teamName">Team Name</h1>
+                    <p id="teamStatus" class="team-status">Loading...</p>
+                </div>
+            </div>
+            <a href="checkin.html" class="back-link-header">← Back to All Teams</a>
+        </header>
+
+        <!-- Main Content -->
+        <div class="team-checkin-main">
+            <!-- Level Selection -->
+            <div class="level-selection-container">
+                <h2>Select Your Next Level</h2>
+                <div class="level-grid" id="levelGrid">
+                    <p class="empty-state">Loading levels...</p>
+                </div>
+            </div>
+
+            <!-- Check-In Button -->
+            <div class="checkin-footer">
+                <button id="checkinBtn" class="btn btn-checkin-large" disabled>
+                    Check In to Level
+                </button>
+                <p id="selectionStatus" class="selection-status">Select a level to proceed</p>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="info-card">
+            <h3>Progress Info</h3>
+            <div class="progress-info" id="progressInfo">
+                <p class="info-row">
+                    <span class="info-label">Current Level:</span>
+                    <span class="info-value" id="currentLevelInfo">None</span>
+                </p>
+                <div id="nextLevelInfo" class="next-level-hint"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Animation -->
+    <div id="celebration" class="celebration">
+        <div class="confetti" id="confetti"></div>
+        <div class="celebration-message">
+            <div class="trophy">🏆</div>
+            <p id="celebrationText">Level Unlocked!</p>
+        </div>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-storage.js"></script>
+    
+    <script src="shared-storage.js"></script>
+    <script src="team-checkin.js"></script>
+</body>
+</html>

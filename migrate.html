@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Migration Helper</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .step {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .data-preview {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-top: 10px;
+        }
+        .success {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .info {
+            background: #dbeafe;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Data Migration Helper</h1>
+        <p class="subtitle">Migrate your localStorage data to Supabase</p>
+
+        <div class="info">
+            <strong>ℹ️ Before you start:</strong>
+            <ul>
+                <li>Make sure you've set up your Supabase project</li>
+                <li>Configured <code>supabase-config.js</code> with your credentials</li>
+                <li>Run the SQL setup script in Supabase</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>Step 1: Check LocalStorage Data</h3>
+            <p>First, let's see what data you have in localStorage:</p>
+            <button onclick="checkLocalStorage()">Check LocalStorage</button>
+            <div id="localStorageResult"></div>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Preview Migration</h3>
+            <p>See what will be migrated to Supabase:</p>
+            <button onclick="previewMigration()" id="previewBtn" disabled>Preview Migration</button>
+            <div id="previewResult"></div>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Migrate to Supabase</h3>
+            <p>This will copy your localStorage data to Supabase:</p>
+            <button onclick="migrateData()" id="migrateBtn" disabled>Migrate Data</button>
+            <div id="migrationResult"></div>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Verify Migration</h3>
+            <p>Check that your data was successfully migrated:</p>
+            <button onclick="verifyMigration()" id="verifyBtn" disabled>Verify Data</button>
+            <div id="verifyResult"></div>
+        </div>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <script>
+        let localData = {
+            teams: [],
+            levels: [],
+            history: []
+        };
+
+        function checkLocalStorage() {
+            const result = document.getElementById('localStorageResult');
+            
+            try {
+                const teams = localStorage.getItem('scoreboard_teams');
+                const levels = localStorage.getItem('scoreboard_levels');
+                const history = localStorage.getItem('scoreboard_progress');
+
+                localData.teams = teams ? JSON.parse(teams) : [];
+                localData.levels = levels ? JSON.parse(levels) : [];
+                localData.history = history ? JSON.parse(history) : [];
+
+                result.innerHTML = `
+                    <div class="data-preview">
+<strong class="success">✓ Found localStorage data:</strong>
+
+Teams: ${localData.teams.length}
+Levels: ${localData.levels.length}
+Progress Records: ${localData.history.length}
+
+<strong>Teams:</strong>
+${JSON.stringify(localData.teams, null, 2)}
+
+<strong>Levels:</strong>
+${JSON.stringify(localData.levels, null, 2)}
+                    </div>
+                `;
+
+                document.getElementById('previewBtn').disabled = false;
+                
+            } catch (error) {
+                result.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        function previewMigration() {
+            const result = document.getElementById('previewResult');
+            
+            result.innerHTML = `
+                <div class="data-preview">
+<strong>Migration Plan:</strong>
+
+Will migrate:
+- ${localData.teams.length} teams
+- ${localData.levels.length} levels  
+- ${localData.history.length} progress records
+
+<strong>Teams to migrate:</strong>
+${localData.teams.map(t => `- ${t.name} (${t.avatar})`).join('\n')}
+
+<strong>Levels to migrate:</strong>
+${localData.levels.map(l => `- ${l.name}`).join('\n')}
+                </div>
+            `;
+
+            document.getElementById('migrateBtn').disabled = false;
+        }
+
+        async function migrateData() {
+            const result = document.getElementById('migrationResult');
+            const migrateBtn = document.getElementById('migrateBtn');
+            
+            migrateBtn.disabled = true;
+            result.innerHTML = '<p>⏳ Migrating data...</p>';
+
+            try {
+                // Migrate teams
+                for (const team of localData.teams) {
+                    const { error } = await supabase
+                        .from('teams')
+                        .insert([{
+                            id: team.id,
+                            name: team.name,
+                            avatar: team.avatar,
+                            current_level: team.currentLevel,
+                            current_level_id: team.currentLevelId,
+                            created_at: team.createdAt
+                        }]);
+                    
+                    if (error) throw error;
+                }
+
+                // Migrate levels
+                for (const level of localData.levels) {
+                    const { error } = await supabase
+                        .from('levels')
+                        .insert([{
+                            id: level.id,
+                            name: level.name,
+                            description: level.description,
+                            created_at: level.createdAt
+                        }]);
+                    
+                    if (error) throw error;
+                }
+
+                // Migrate progress history
+                for (const record of localData.history) {
+                    const { error } = await supabase
+                        .from('progress_history')
+                        .insert([{
+                            team_id: record.teamId,
+                            team_name: record.teamName,
+                            level_id: record.levelId,
+                            level_name: record.levelName,
+                            timestamp: record.timestamp
+                        }]);
+                    
+                    if (error) throw error;
+                }
+
+                result.innerHTML = `
+                    <p class="success">✅ Migration successful!</p>
+                    <div class="data-preview">
+Migrated:
+- ${localData.teams.length} teams
+- ${localData.levels.length} levels
+- ${localData.history.length} progress records
+                    </div>
+                `;
+
+                document.getElementById('verifyBtn').disabled = false;
+
+            } catch (error) {
+                result.innerHTML = `
+                    <p class="error">❌ Migration failed: ${error.message}</p>
+                    <p>Tip: This error often means data already exists. Check Supabase dashboard.</p>
+                `;
+                migrateBtn.disabled = false;
+            }
+        }
+
+        async function verifyMigration() {
+            const result = document.getElementById('verifyResult');
+            result.innerHTML = '<p>⏳ Verifying...</p>';
+
+            try {
+                const { data: teams } = await supabaseClient.from('teams').select('*');
+                const { data: levels } = await supabaseClient.from('levels').select('*');
+                const { data: history } = await supabaseClient.from('progress_history').select('*');
+
+                result.innerHTML = `
+                    <p class="success">✅ Verification complete!</p>
+                    <div class="data-preview">
+<strong>Data in Supabase:</strong>
+
+Teams: ${teams?.length || 0}
+Levels: ${levels?.length || 0}
+Progress Records: ${history?.length || 0}
+
+<strong>Teams:</strong>
+${teams?.map(t => `- ${t.name}`).join('\n')}
+
+<strong>Levels:</strong>
+${levels?.map(l => `- ${l.name}`).join('\n')}
+
+<strong>✨ Your data is now in Supabase!</strong>
+You can now use the main app with realtime features.
+                    </div>
+                `;
+
+            } catch (error) {
+                result.innerHTML = `<p class="error">❌ Verification failed: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

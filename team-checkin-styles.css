@@ -1,0 +1,417 @@
+/* Team Check-In Page Styles */
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.team-header-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.team-header-avatar {
+    font-size: 4em;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.6s ease-out;
+}
+
+.team-header h1 {
+    color: white;
+    font-size: 2.5em;
+    margin: 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.team-status {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1em;
+    margin: 10px 0 0 0;
+    font-weight: 500;
+}
+
+.back-link-header {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.back-link-header:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: white;
+}
+
+/* Team Check-In Main */
+.team-checkin-main {
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.6s ease-out;
+    margin-bottom: 30px;
+}
+
+.team-checkin-main h2 {
+    color: #667eea;
+    margin-bottom: 40px;
+    font-size: 2em;
+    text-align: center;
+}
+
+/* Level Selection Container */
+.level-selection-container {
+    margin-bottom: 50px;
+}
+
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.level-card-team {
+    padding: 25px 15px;
+    border: 3px solid #e0e0e0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-height: 150px;
+    justify-content: center;
+    position: relative;
+}
+
+.level-card-team::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: #ddd;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.level-card-team:hover {
+    transform: translateY(-8px);
+    border-color: #667eea;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+}
+
+.level-card-team.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    box-shadow: 0 20px 45px rgba(102, 126, 234, 0.4);
+    transform: scale(1.08);
+}
+
+.level-card-team.selected::before {
+    background: white;
+    opacity: 1;
+    animation: checkmark 0.5s ease-out;
+}
+
+.level-card-team.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2em;
+    color: #667eea;
+    font-weight: bold;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.level-name-team {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: inherit;
+}
+
+.level-description-team {
+    font-size: 0.85em;
+    opacity: 0.7;
+    color: inherit;
+}
+
+.level-badge-team {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* Check-In Footer */
+.checkin-footer {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid #e0e0e0;
+    text-align: center;
+}
+
+.btn-checkin-large {
+    padding: 20px 80px;
+    font-size: 1.2em;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 15px 35px rgba(17, 153, 142, 0.3);
+}
+
+.btn-checkin-large:hover:not(:disabled) {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(17, 153, 142, 0.5);
+}
+
+.btn-checkin-large:active:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.btn-checkin-large:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
+}
+
+.selection-status {
+    margin-top: 20px;
+    font-size: 1em;
+    color: #666;
+    min-height: 24px;
+}
+
+.selection-status.ready {
+    color: #11998e;
+    font-weight: 700;
+    font-size: 1.05em;
+}
+
+/* Info Card */
+.info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.6s ease-out 0.2s both;
+}
+
+.info-card h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+
+.progress-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 10px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.info-value {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.95em;
+}
+
+.next-level-hint {
+    padding: 15px;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    border-radius: 10px;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+    animation: slideDown 0.6s ease-out;
+}
+
+/* Error State */
+.error-container {
+    background: white;
+    border-radius: 20px;
+    padding: 60px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: slideUp 0.6s ease-out;
+}
+
+.error-container h2 {
+    color: #f5576c;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.error-container p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.error-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .team-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .team-header-info {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .team-header h1 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-header-avatar {
+        width: 100px;
+        height: 100px;
+        font-size: 3em;
+    }
+
+    .team-checkin-main {
+        padding: 30px 20px;
+    }
+
+    .team-checkin-main h2 {
+        font-size: 1.5em;
+    }
+
+    .level-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+    }
+
+    .level-card-team {
+        padding: 15px 10px;
+        min-height: 120px;
+    }
+
+    .level-name-team {
+        font-size: 0.9em;
+    }
+
+    .btn-checkin-large {
+        padding: 15px 50px;
+        font-size: 1em;
+    }
+
+    .info-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-header {
+        gap: 10px;
+    }
+
+    .team-header-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5em;
+    }
+
+    .team-header h1 {
+        font-size: 1.5em;
+    }
+
+    .back-link-header {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .level-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+    .level-card-team {
+        padding: 12px 8px;
+        min-height: 100px;
+    }
+
+    .level-name-team {
+        font-size: 0.8em;
+    }
+
+    .level-description-team {
+        font-size: 0.7em;
+    }
+
+    .btn-checkin-large {
+        padding: 12px 30px;
+        font-size: 0.95em;
+    }
+}

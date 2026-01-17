@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Scoreboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🏆 Team Scoreboard 🏆</h1>
+            <p class="subtitle">Track your teams' progress and celebrate their achievements!</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="dashboard">Dashboard</button>
+            <button class="tab-button" data-tab="management">Manage Teams & Levels</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="dashboard">
+                <h2>Leaderboard</h2>
+                <div class="leaderboard" id="leaderboard">
+                    <p class="empty-state">No teams yet. Add teams in the Management tab!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Tab -->
+        <div id="management" class="tab-content">
+            <div class="management-container">
+                <!-- Add Team Section -->
+                <div class="card add-team-card">
+                    <h2>Add New Team</h2>
+                    <form id="addTeamForm" class="form">
+                        <div class="form-group">
+                            <label for="teamName">Team Name:</label>
+                            <input type="text" id="teamName" placeholder="Enter team name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="avatarSelect">Choose Avatar:</label>
+                            <div class="avatar-grid" id="avatarGrid">
+                                <!-- Avatars will be populated by JavaScript -->
+                            </div>
+                            <input type="hidden" id="selectedAvatar" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Team</button>
+                    </form>
+                </div>
+
+                <!-- Add Level Section -->
+                <div class="card add-level-card">
+                    <h2>Add New Level</h2>
+                    <form id="addLevelForm" class="form">
+                        <div class="form-group">
+                            <label for="levelName">Level Name:</label>
+                            <input type="text" id="levelName" placeholder="e.g., Level 1, Bronze, etc." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="levelDescription">Description:</label>
+                            <input type="text" id="levelDescription" placeholder="Describe this level">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Level</button>
+                    </form>
+                </div>
+
+                <!-- Check In Section -->
+                <div class="card checkin-card">
+                    <h2>Team Check-In</h2>
+                    <form id="checkInForm" class="form">
+                        <div class="form-group">
+                            <label for="selectTeam">Select Team:</label>
+                            <select id="selectTeam" required>
+                                <option value="">-- Choose a team --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="selectLevel">Select Level:</label>
+                            <select id="selectLevel" required>
+                                <option value="">-- Choose a level --</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Check In</button>
+                    </form>
+                </div>
+
+                <!-- Teams List -->
+                <div class="card teams-list-card">
+                    <h2>Current Teams</h2>
+                    <div id="teamsList" class="teams-list">
+                        <p class="empty-state">No teams created yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Animation -->
+    <div id="celebration" class="celebration">
+        <div class="confetti" id="confetti"></div>
+        <div class="celebration-message">
+            <div class="trophy">🏆</div>
+            <p id="celebrationText">Level Unlocked!</p>
+        </div>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabase-storage.js"></script>
+    
+    <script src="shared-storage.js"></script>
+    <script src="avatars.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

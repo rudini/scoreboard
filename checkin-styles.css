@@ -1,0 +1,308 @@
+/* Check-In Page Styles */
+
+.checkin-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.checkin-main {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.6s ease-out;
+}
+
+.checkin-main h2 {
+    color: #667eea;
+    margin-bottom: 40px;
+    font-size: 2em;
+    text-align: center;
+}
+
+/* Selection Section */
+.selection-section {
+    margin-bottom: 50px;
+}
+
+.selection-section h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #667eea;
+}
+
+.team-grid,
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.team-card,
+.level-card {
+    padding: 20px;
+    border: 3px solid #e0e0e0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.team-link-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 1.3em;
+    text-decoration: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(102, 126, 234, 0.2);
+}
+
+.team-card:hover .team-link-icon {
+    opacity: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.team-card:hover,
+.level-card:hover {
+    transform: translateY(-5px);
+    border-color: #667eea;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+.team-card.selected,
+.level-card.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    transform: scale(1.05);
+}
+
+.team-avatar-large {
+    font-size: 2.5em;
+}
+
+.team-name {
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.team-level-info {
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.level-name {
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.level-description {
+    font-size: 0.75em;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.team-card.selected .team-level-info,
+.level-card.selected .level-description {
+    opacity: 0.9;
+    color: inherit;
+}
+
+/* Check-In Action */
+.checkin-action {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.btn-checkin {
+    padding: 18px 60px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(17, 153, 142, 0.3);
+}
+
+.btn-checkin:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(17, 153, 142, 0.5);
+}
+
+.btn-checkin:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.btn-checkin:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #ccc 0%, #999 100%);
+}
+
+.selection-status {
+    margin-top: 15px;
+    font-size: 0.95em;
+    color: #666;
+    min-height: 20px;
+}
+
+.selection-status.ready {
+    color: #11998e;
+    font-weight: 600;
+}
+
+/* Info Panel */
+.info-panel {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    height: fit-content;
+    animation: slideUp 0.6s ease-out 0.1s both;
+    position: sticky;
+    top: 20px;
+}
+
+.info-panel h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.stat-item span {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.recent-checkins {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.checkin-item {
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border-left: 4px solid #11998e;
+    font-size: 0.85em;
+}
+
+.checkin-team {
+    font-weight: 600;
+    color: #333;
+}
+
+.checkin-level {
+    color: #666;
+    font-size: 0.8em;
+    margin-top: 3px;
+}
+
+.checkin-time {
+    color: #999;
+    font-size: 0.75em;
+    margin-top: 3px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.back-link:hover {
+    opacity: 1;
+    transform: translateX(-5px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .checkin-container {
+        grid-template-columns: 1fr;
+    }
+
+    .info-panel {
+        position: relative;
+        top: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .checkin-main {
+        padding: 25px;
+    }
+
+    .team-grid,
+    .level-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+    }
+
+    .team-card,
+    .level-card {
+        padding: 15px;
+    }
+
+    .team-avatar-large {
+        font-size: 2em;
+    }
+
+    .btn-checkin {
+        padding: 15px 40px;
+        font-size: 1em;
+    }
+}
